@@ -7,6 +7,7 @@ const cookieparser = require("cookie-parser");
 // const session = require("express-session");
 
 const errorHandlers = require("./handlers/errorHandlers");
+const authController = require("./controllers/authController");
 
 const PORT = process.env.PORT || 8000;
 
@@ -44,15 +45,7 @@ const { verifyToken } = require("./middlewares/authMiddleware");
 
 app.use("/auth", authRouter);
 
-app.get("/", verifyToken, (req, res) => {
-  // Access the decoded user information from req.user
-  const { username } = req.user;
-  console.log(req);
-  res.status(200).json({
-    message: `Protected route accessed by ${username}.`,
-    isLoggedIn: true,
-  });
-});
+app.get("/", verifyToken, authController.verifyUser);
 
 app.use(errorHandlers.notFound);
 
