@@ -4,7 +4,6 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const cookieparser = require("cookie-parser");
-// const session = require("express-session");
 
 const errorHandlers = require("./handlers/errorHandlers");
 const authController = require("./controllers/authController");
@@ -23,17 +22,6 @@ app.use(
 app.use(express.json());
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(
-//   session({
-//     key: "userId",
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     // cookie:{
-//     //     expires:60*60*60*24,
-//     // }
-//   })
-// );
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
